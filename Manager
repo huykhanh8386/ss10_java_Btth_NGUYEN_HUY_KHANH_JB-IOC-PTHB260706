@@ -1,0 +1,22 @@
+public class Manager extends Employee{
+    private double responsibilitySalary;
+    public Manager(String id, String name, double baseSalary, double responsibilitySalary) {
+        super(id, name, baseSalary);
+        this.responsibilitySalary = responsibilitySalary;
+    }
+    public double getResponsibilitySalary() {
+        return responsibilitySalary;
+    }
+    public void setResponsibilitySalary(double responsibilitySalary) {
+        this.responsibilitySalary = responsibilitySalary;
+    }
+    @Override
+    public double getSalary() {
+        return getBaseSalary() + responsibilitySalary;
+    }
+    @Override
+    public void display() {
+        super.display();
+        System.out.printf(" %-12s | %,20.0f VNĐ |%n", "Manager", getSalary());
+    }
+}
