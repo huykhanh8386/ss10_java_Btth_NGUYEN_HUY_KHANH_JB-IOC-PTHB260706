@@ -1,0 +1,97 @@
+import java.util.Scanner;
+public class EnterpriseManager{
+    private Employee[] staff = new Employee[100];
+    private int count = 0;
+    private Scanner sc = new Scanner(System.in);
+    public void addManager() {
+        if (count >= staff.length) {
+            System.out.println("Danh sách nhân sự đã đầy!");
+            return;
+        }
+        System.out.println("===== THÊM QUẢN LÝ MỚI =====");
+        System.out.print("Nhập mã nhân viên: ");
+        String id = sc.nextLine();
+        System.out.print("Nhập họ tên: ");
+        String name = sc.nextLine();
+        System.out.print("Nhập lương cơ bản: ");
+        double baseSalary = Double.parseDouble(sc.nextLine());
+        System.out.print("Nhập lương trách nhiệm: ");
+        double responsibilitySalary = Double.parseDouble(sc.nextLine());
+        staff[count] = new Manager(id, name, baseSalary, responsibilitySalary);
+        count++;
+        System.out.println("Thêm Manager thành công!");
+    }
+    public void addDeveloper() {
+        if (count >= staff.length) {
+            System.out.println("Danh sách nhân sự đã đầy!");
+            return;
+        }
+        System.out.println();
+        System.out.println("===== THÊM LẬP TRÌNH VIÊN MỚI =====");
+        System.out.print("Nhập mã nhân viên: ");
+        String id = sc.nextLine();
+        System.out.print("Nhập họ tên: ");
+        String name = sc.nextLine();
+        System.out.print("Nhập lương cơ bản: ");
+        double baseSalary = Double.parseDouble(sc.nextLine());
+        System.out.print("Nhập số giờ tăng ca: ");
+        int overtimeHours = Integer.parseInt(sc.nextLine());
+        staff[count] = new Developer(id, name, baseSalary, overtimeHours);
+        count++;
+        System.out.println("Thêm Developer thành công!");
+    }
+    public void displayStaff() {
+        if (count == 0) {
+            System.out.println("\nDanh sách nhân sự đang trống!");
+            return;
+        }
+        System.out.println("=======DANH SÁCH NHÂN SỰ TOÀN TẬP ĐOÀN=======");
+        System.out.printf("| %-10s | %-20s | %-12s | %-24s |%n", "Mã NV", "Họ và tên", "Chức danh", "Thu nhập thực lĩnh");
+        for (int i = 0; i < count; i++) {
+            staff[i].display();
+        }
+    }
+    public void calculateTotalSalary() {
+        if (count == 0) {
+            System.out.println("\nDanh sách nhân sự đang trống!");
+            return;
+        }
+        double total = 0;
+        for (int i = 0; i < count; i++) {
+            total += staff[i].getSalary();
+        }
+        System.out.printf("TỔNG QUỸ LƯƠNG TẬP ĐOÀN: %,.2f VNĐ%n", total);
+    }
+    public void menu() {
+        int choice;
+        do {
+            System.out.println(" HỆ THỐNG QUẢN LÝ LƯƠNG ĐA HÌNH - RIKKEI ENTERPRISE");
+            System.out.println("1. Thêm Quản lý");
+            System.out.println("2. Thêm Lập trình viên");
+            System.out.println("3. Danh sách Nhân sự");
+            System.out.println("4. Thống kê Quỹ lương");
+            System.out.println("5. Thoát");
+            System.out.print("Chọn chức năng (1-5): ");
+            choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1:
+                    addManager();
+                    break;
+                case 2:
+                    addDeveloper();
+                    break;
+                case 3:
+                    displayStaff();
+                    break;
+                case 4:
+                    calculateTotalSalary();
+                    break;
+                case 5:
+                    System.out.println("Đã thoát chương trình!");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ!");
+            }
+        } while (choice != 5);
+    }
+}
